@@ -11,12 +11,23 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <script type="text/javascript" src="popup.js"></script>
+    <style>
+      .btn-custom-fixed {
+        width: 75px !important;
+      }
+      body {
+        background-color: #181818;
+        border: solid red;
+        border-width: thin;
+      }
+    </style>
   </head>
   <body style="width: 400px;">
+    <label id="hdn-active-btn" hidden></label>
     <div style="padding: 5%; padding-bottom: 0%;">
       <div class="alert alert-danger" role="alert">
         <i class="fa fa-youtube-play" style="font-size: 24px; color: red;"></i>
-        Browse through the youtube timestamps
+        Browse through the video timestamps
       </div>
 
       <div
@@ -25,32 +36,7 @@
         aria-label="Toolbar with button groups"
       >
         <div class="btn-group mr-2" role="group" aria-label="First group">
-          <button type="button" class="btn btn-secondary">
-            <i
-              class="fa fa-angle-double-left"
-              style="font-size: 24px;"
-              aria-hidden="true"
-            ></i>
-            Previous
-          </button>
-        </div>
-        <div
-          class="btn-group mr-2"
-          role="group"
-          aria-label="Second group"
-          style="padding-left: 8.25%; padding-right: 8.25%;"
-        >
-          <button type="button" class="btn btn-secondary">
-            <i
-              class="fa fa-angle-double-right"
-              style="font-size: 24px;"
-              aria-hidden="true"
-            ></i>
-            Next
-          </button>
-        </div>
-        <div class="btn-group" role="group" aria-label="Third group">
-          <button type="button" class="btn btn-secondary">
+          <button id="btn-refresh" type="button" class="btn btn-secondary">
             <i
               class="fa fa-refresh"
               style="font-size: 24px;"
@@ -59,13 +45,47 @@
             Refresh
           </button>
         </div>
+        <div
+          class="btn-group mr-2"
+          role="group"
+          aria-label="Second group"
+          style="padding-left: 8%; padding-right: 8%;"
+        >
+          <button id="btn-previous" type="button" class="btn btn-secondary">
+            <i
+              class="fa fa-angle-double-left"
+              style="font-size: 24px;"
+              aria-hidden="true"
+            ></i>
+            Previous
+          </button>
+        </div>
+        <div class="btn-group" role="group" aria-label="Third group">
+          <button id="btn-next" type="button" class="btn btn-secondary">
+            <i
+              class="fa fa-angle-double-right"
+              style="font-size: 24px;"
+              aria-hidden="true"
+            ></i>
+            Next
+          </button>
+        </div>
       </div>
 
-      <ul id="timestamps"></ul>
+      <div style="padding-top: 2%; padding-bottom: 2%;">
+        <div id="timestamps">
+          <p style="color: white; text-align: center;">
+            <i>No timestamps found. Try loading up some comments!</i>
+          </p>
+        </div>
+      </div>
       <div class="alert alert-info text-center" role="alert">
         <i class="fa fa-github" style="font-size: 24px;"></i>
-        <a href="https://github.com/AshwathVS/youtime" class="alert-link"
-          >Link to the github repository :)</a
+        <a
+          href="https://github.com/AshwathVS/youtime"
+          target="_blank"
+          class="alert-link"
+          >Find the repository here :)</a
         >
       </div>
     </div>
