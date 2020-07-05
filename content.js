@@ -17,7 +17,7 @@ chrome.extension.onRequest.addListener(function (
   } else if (request.action == "getURL") {
     var index = document.URL.indexOf("&");
     if (index > 0) {
-      sendResponse(document.URL.substr(0, document.URL.indexOf("&")));
+      sendResponse(document.URL.substr(0, index));
     } else {
       sendResponse(document.URL);
     }
