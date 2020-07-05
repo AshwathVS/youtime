@@ -5,7 +5,8 @@
   "permissions": [
     "declarativeContent",
     "webNavigation",
-    "https://www.youtube.com/*"
+    "https://www.youtube.com/*",
+    "management"
   ],
   "background": {
     "scripts": ["background.js"]
@@ -21,5 +22,6 @@
       "32": "images/icon-disabled-32.png"
     }
   },
+  "web_accessible_resources": ["script.js"],
   "manifest_version": 2
 }
