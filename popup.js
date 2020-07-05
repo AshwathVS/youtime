@@ -2,14 +2,17 @@ document.addEventListener("DOMContentLoaded", function () {
   chrome.tabs.getSelected(null, function (tab) {
     chrome.tabs.sendRequest(tab.id, { action: "getData" }, populateTimestamps);
   });
+
   document
     .getElementById("btn-previous")
     .addEventListener("click", function () {
       navigate("previous");
     });
+
   document.getElementById("btn-next").addEventListener("click", function () {
     navigate("next");
   });
+
   document.getElementById("btn-refresh").addEventListener("click", function () {
     navigate("refresh");
   });
@@ -121,7 +124,7 @@ function populate(timestamps) {
       label.style.color = "white";
       label.innerText = value.description
         ? value.description
-        : "Hoping it's a good song (No info found)";
+        : "Hoping for something good! (No info found)";
 
       div.appendChild(button);
       div.appendChild(label);
@@ -129,6 +132,17 @@ function populate(timestamps) {
       timeStampDiv.appendChild(div);
       counter++;
     }
+    counter--;
+    chrome.tabs.getSelected(null, function (tab) {
+      chrome.tabs.sendRequest(tab.id, { action: "getURL" }, function (url) {
+        chrome.storage.sync.get([url], function (data) {
+          var activeBtn = data ? data[url] : undefined;
+          if (activeBtn) {
+            markButton(activeBtn, true);
+          }
+        });
+      });
+    });
   }
 }
 
@@ -144,57 +158,74 @@ function getSeconds(timestampString) {
 }
 
 function navigate(buttonClicked) {
-  var currentIndex;
-  var currentActiveBtnId = document.getElementById("hdn-active-btn").innerText;
-  if (currentActiveBtnId) {
-    currentIndex = currentActiveBtnId.split("-")[1];
-  } else {
-    currentIndex = 0;
-  }
+  chrome.tabs.getSelected(null, function (tab) {
+    chrome.tabs.sendRequest(tab.id, { action: "getURL" }, function (url) {
+      chrome.storage.sync.get([url], function (currentActiveBtnId) {
+        var currentIndex;
+        if (currentActiveBtnId) {
+          currentIndex = currentActiveBtnId[url].split("-")[1];
+        } else {
+          currentIndex = 0;
+        }
 
-  var totaltimestamps = document.getElementById("timestamps").children.length;
-  switch (buttonClicked) {
-    case "previous": {
-      currentIndex--;
-      if (currentIndex < 0) {
-        currentIndex = totaltimestamps;
-      }
-      markAsActive("btn-" + currentIndex);
-      document.getElementById("btn-" + currentIndex)
-        ? document.getElementById("btn-" + currentIndex).click()
-        : "";
-      break;
-    }
-    case "next": {
-      currentIndex++;
-      if (currentIndex > totaltimestamps) {
-        currentIndex = 1;
-      }
-      markAsActive("btn-" + currentIndex);
-      document.getElementById("btn-" + currentIndex)
-        ? document.getElementById("btn-" + currentIndex).click()
-        : "";
-      break;
-    }
-    case "refresh": {
-      chrome.tabs.getSelected(null, function (tab) {
-        chrome.tabs.sendRequest(
-          tab.id,
-          { action: "getData" },
-          populateTimestamps
-        );
+        var totaltimestamps = document.getElementById("timestamps").children
+          .length;
+        switch (buttonClicked) {
+          case "previous": {
+            currentIndex--;
+            if (currentIndex < 0) {
+              currentIndex = totaltimestamps;
+            }
+            markAsActive("btn-" + currentIndex);
+            document.getElementById("btn-" + currentIndex)
+              ? document.getElementById("btn-" + currentIndex).click()
+              : "";
+            break;
+          }
+          case "next": {
+            currentIndex++;
+            if (currentIndex > totaltimestamps) {
+              currentIndex = 1;
+            }
+            markAsActive("btn-" + currentIndex);
+            document.getElementById("btn-" + currentIndex)
+              ? document.getElementById("btn-" + currentIndex).click()
+              : "";
+            break;
+          }
+          case "refresh": {
+            chrome.tabs.getSelected(null, function (tab) {
+              chrome.tabs.sendRequest(
+                tab.id,
+                { action: "getData" },
+                populateTimestamps
+              );
+            });
+            break;
+          }
+        }
       });
-      break;
-    }
-  }
+    });
+  });
 }
 
 function markAsActive(btnId) {
-  var currentActiveBtn = document.getElementById("hdn-active-btn").innerText;
-  if (currentActiveBtn == btnId) return;
-  markButton(currentActiveBtn, false);
-  document.getElementById("hdn-active-btn").innerText = btnId;
-  markButton(btnId, true);
+  chrome.tabs.getSelected(null, function (tab) {
+    chrome.tabs.sendRequest(tab.id, { action: "getURL" }, function (url) {
+      chrome.storage.sync.get([url], function (currentActiveBtn) {
+        currentActiveBtn = currentActiveBtn[url];
+        if (btnId == undefined) {
+          markButton(currentActiveBtn, true);
+        } else {
+          markButton(currentActiveBtn, false);
+          chrome.storage.sync.set({ [url]: btnId }, function () {
+            console.log("Value is set to " + btnId);
+            markButton(btnId, true);
+          });
+        }
+      });
+    });
+  });
 }
 
 function markButton(btn, isActive) {

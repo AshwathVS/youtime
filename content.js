@@ -14,6 +14,13 @@ chrome.extension.onRequest.addListener(function (
     document.dispatchEvent(
       new CustomEvent("seekToSecond", { detail: request.seconds })
     );
+  } else if (request.action == "getURL") {
+    var index = document.URL.indexOf("&");
+    if (index > 0) {
+      sendResponse(document.URL.substr(0, document.URL.indexOf("&")));
+    } else {
+      sendResponse(document.URL);
+    }
   } else sendResponse({});
 });
 

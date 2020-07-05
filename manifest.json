@@ -6,7 +6,8 @@
     "declarativeContent",
     "webNavigation",
     "https://www.youtube.com/*",
-    "management"
+    "management",
+    "storage"
   ],
   "background": {
     "scripts": ["background.js"]
