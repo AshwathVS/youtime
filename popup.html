@@ -26,7 +26,7 @@
     <div style="padding: 5%; padding-bottom: 0%;">
       <div class="alert alert-danger" role="alert">
         <i class="fa fa-youtube-play" style="font-size: 24px; color: red;"></i>
-        Browse through the video timestamps
+        &nbsp;Browse through the video timestamps
       </div>
 
       <div
@@ -34,7 +34,12 @@
         role="toolbar"
         aria-label="Toolbar with button groups"
       >
-        <div class="btn-group mr-2" role="group" aria-label="First group">
+        <div
+          class="btn-group mr-2"
+          role="group"
+          aria-label="First group"
+          title="Reload timestamps"
+        >
           <button id="btn-refresh" type="button" class="btn btn-secondary">
             <i
               class="fa fa-refresh"
@@ -48,7 +53,7 @@
           class="btn-group mr-2"
           role="group"
           aria-label="Second group"
-          style="padding-left: 8%; padding-right: 8%;"
+          title="Go to previous timestamp"
         >
           <button id="btn-previous" type="button" class="btn btn-secondary">
             <i
@@ -59,7 +64,12 @@
             Previous
           </button>
         </div>
-        <div class="btn-group" role="group" aria-label="Third group">
+        <div
+          class="btn-group"
+          role="group"
+          aria-label="Third group"
+          title="Go to next timestamp"
+        >
           <button id="btn-next" type="button" class="btn btn-secondary">
             <i
               class="fa fa-angle-double-right"
@@ -67,6 +77,21 @@
               aria-hidden="true"
             ></i>
             Next
+          </button>
+        </div>
+        <div
+          class="btn-group"
+          role="group"
+          aria-label="Third group"
+          style="padding-left: 3%;"
+          title="Clear storage"
+        >
+          <button id="btn-clear" type="button" class="btn btn-secondary">
+            <i
+              class="fa fa-trash-o"
+              style="font-size: 24px;"
+              aria-hidden="true"
+            ></i>
           </button>
         </div>
       </div>

@@ -16,6 +16,10 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("btn-refresh").addEventListener("click", function () {
     navigate("refresh");
   });
+
+  document.getElementById("btn-clear").addEventListener("click", function () {
+    navigate("clear-storage");
+  });
 });
 
 function populateTimestamps(data) {
@@ -162,7 +166,7 @@ function navigate(buttonClicked) {
     chrome.tabs.sendRequest(tab.id, { action: "getURL" }, function (url) {
       chrome.storage.sync.get([url], function (currentActiveBtnId) {
         var currentIndex;
-        if (currentActiveBtnId) {
+        if (currentActiveBtnId && currentActiveBtnId[url]) {
           currentIndex = currentActiveBtnId[url].split("-")[1];
         } else {
           currentIndex = 0;
@@ -203,6 +207,20 @@ function navigate(buttonClicked) {
             });
             break;
           }
+          case "clear-storage": {
+            chrome.tabs.getSelected(null, function (tab) {
+              chrome.tabs.sendRequest(tab.id, { action: "getURL" }, function (
+                url
+              ) {
+                chrome.storage.sync.get([url], function (currentActiveBtn) {
+                  currentActiveBtn = currentActiveBtn[url];
+                  markButton(currentActiveBtn, false);
+                  chrome.storage.sync.clear();
+                });
+              });
+            });
+            break;
+          }
         }
       });
     });
@@ -219,7 +237,6 @@ function markAsActive(btnId) {
         } else {
           markButton(currentActiveBtn, false);
           chrome.storage.sync.set({ [url]: btnId }, function () {
-            console.log("Value is set to " + btnId);
             markButton(btnId, true);
           });
         }
