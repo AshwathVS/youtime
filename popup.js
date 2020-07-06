@@ -54,7 +54,7 @@ function populateTimestamps(data) {
   }
 
   const followupRegex = new RegExp(
-    "[a-zA-Z' ]+(?=((\\d?\\d:)?(\\d?\\d:)(\\d?\\d)))",
+    "[a-zA-Z' -]+(?=((\\d?\\d:)?(\\d?\\d:)(\\d?\\d)))",
     "g"
   );
 
@@ -85,9 +85,10 @@ function populate(timestamps) {
   for (let [key, value] of timestamps) {
     var seconds = getSeconds(key);
     if (
-      !timestampsToDisplay.has(seconds) ||
-      (timestampsToDisplay.has(seconds) &&
-        value.length > timestampsToDisplay.get(seconds).length)
+      seconds != undefined &&
+      (!timestampsToDisplay.has(seconds) ||
+        (timestampsToDisplay.has(seconds) &&
+          value.length > timestampsToDisplay.get(seconds).length))
     ) {
       timestampsToDisplay.set(seconds, { display: key, description: value });
     }
@@ -151,14 +152,16 @@ function populate(timestamps) {
 }
 
 function getSeconds(timestampString) {
-  var arr = timestampString.split(":");
-  var seconds = 0,
-    tmp = 1;
-  for (var i = arr.length - 1; i >= 0; i--) {
-    seconds += parseInt(arr[i]) * tmp;
-    tmp *= 60;
-  }
-  return seconds;
+  if (timestampString) {
+    var arr = timestampString.split(":");
+    var seconds = 0,
+      tmp = 1;
+    for (var i = arr.length - 1; i >= 0; i--) {
+      seconds += parseInt(arr[i]) * tmp;
+      tmp *= 60;
+    }
+    return seconds;
+  } else return undefined;
 }
 
 function navigate(buttonClicked) {
