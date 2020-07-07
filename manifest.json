@@ -1,7 +1,7 @@
 {
   "name": "Youtime",
   "version": "1.0",
-  "description": "Youtime extension will pick up all the time stamps present in the comments and present them in the popup to enable users to choose from them instead of searching through the comments.",
+  "description": "Youtime will pick up all the time stamps present in the comments and description for you",
   "permissions": [
     "declarativeContent",
     "webNavigation",
