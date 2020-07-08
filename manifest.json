@@ -2,13 +2,7 @@
   "name": "Youtime",
   "version": "1.0",
   "description": "Youtime will pick up all the time stamps present in the comments and description for you",
-  "permissions": [
-    "declarativeContent",
-    "webNavigation",
-    "https://www.youtube.com/*",
-    "management",
-    "storage"
-  ],
+  "permissions": ["webNavigation", "https://www.youtube.com/*", "storage"],
   "background": {
     "scripts": ["background.js"]
   },
