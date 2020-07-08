@@ -2,11 +2,9 @@
 Chrome extension for YouTube which picks up all the time stamps from the comments for a particular video and displays them in order
 
 # Instructions
-1. Clone the repository to your computer
-2. Open Chrome, click on ```Options icon(on the top right corner) -> More tools -> Extensions```
-3. Enable ```Developer mode``` present on the right corner.
-4. Click on ```Load unpacked``` and select the ```youtime``` repository that you had cloned.
-5. That's it, you are good to go :)
+Search for **Youtime** on the chrome web store, and install the one offered by __machine_chop__ <br>
+Or follow this link: https://chrome.google.com/webstore/detail/youtime/ocaofghmcnmckbnlmgocfjemofblpgdk
+
 
 # Snapshots
 ### Snap 1
