@@ -7,8 +7,10 @@ Or follow this link: https://chrome.google.com/webstore/detail/youtime/ocaofghmc
 
 
 # Snapshots
-### Snap 1
-![Snap 1](https://github.com/AshwathVS/youtime/blob/master/Snap1.jpg)
+### From chrome web store
+![Snap 1](https://github.com/AshwathVS/youtime/blob/master/chrome-store-snap.jpg)
 
-### Snap 2
-![Snap 2](https://github.com/AshwathVS/youtime/blob/master/Snap2.jpg)
+### Sample snaps
+![Snap 2](https://github.com/AshwathVS/youtime/blob/master/Snap1.jpg)
+
+![Snap 3](https://github.com/AshwathVS/youtime/blob/master/Snap2.jpg)
