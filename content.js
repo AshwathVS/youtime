@@ -3,13 +3,18 @@ chrome.extension.onRequest.addListener(function (
   sender,
   sendResponse
 ) {
-  if (request.action == "getData")
+  if (request.action == "getData") {
+    // click the `Show more` button on description
+    Array.from(document.querySelectorAll('tp-yt-paper-button')).find(node => node.innerText === "Show more").click();
     sendResponse({
       pageData:
+        document.getElementById("above-the-fold").innerText +
+        "\n" +
         document.getElementById("meta").innerText +
         "\n" +
         document.getElementById("comments").innerText,
     });
+  }
   else if (request.action == "seekTo") {
     document.dispatchEvent(
       new CustomEvent("seekToSecond", { detail: request.seconds })
